@@ -18,7 +18,10 @@ class MainService {
 
   public async handleMessage(ctx: MyContext) {
     if (!ctx.from || !ctx.message) return;
-    if (ctx.message?.reply_to_message) {
+    if (
+      ctx.from.id === config.get("ADMIN_ID") &&
+      ctx.message?.reply_to_message
+    ) {
       return this.handleReply(ctx);
     }
     if (
