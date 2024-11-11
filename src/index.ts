@@ -1,11 +1,9 @@
-import { Conversation } from "@grammyjs/conversations";
 import { Bot, Context } from "grammy";
 import { config } from "./config.service";
 import { logger } from "./logger";
 import { mainSerivce } from "./main.service";
 
 export type MyContext = Context;
-export type MyConversation = Conversation<MyContext>;
 
 export const bot = new Bot<MyContext>(config.get("TOKEN"));
 mainSerivce.setBot(bot);
