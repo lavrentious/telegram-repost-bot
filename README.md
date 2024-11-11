@@ -19,10 +19,13 @@ ADMIN_ID=123 # id пользователя-админа в тг
 DB_PATH="./db" # локальный путь к файлу БД SQLite 
 ```
 
-## запуск
+## установка и запуск
 1. создать соответствующий `.env` файл
 2. `pnpm i`
-3. `pnpm run start` или `bun run start`
+3. `pnpm run build` или `bun run build`
+4. `pnpm run start` или `bun run start`
+
+или `pnpm run start:dev` вместо последних 2 пунктов для локальной разработки
 
 ## сделано с помощью
 - [grammy.js](https://grammy.dev/)
