@@ -29,13 +29,17 @@ export class DBService {
       )
     `);
 
-    this.cleanupJob = this.initCleanupJob();
+    this.initCleanupJob();
     this.cleanup();
   }
 
   private initCleanupJob() {
     logger.info("initializing cleanup job");
-    return new Cron("0 0 * * *", () => {
+    if (this.cleanupJob) {
+      logger.warn("cleanup job already initialized, restarting...");
+      this.cleanupJob.stop();
+    }
+    this.cleanupJob = new Cron("0 0 * * *", () => {
       this.cleanup();
     });
   }
