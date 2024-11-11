@@ -17,7 +17,9 @@ async function start() {
   });
 
   bot.command("start", async (ctx) => {
-    await ctx.reply("hello kent");
+    await ctx.reply(
+      "Здравствуйте. Отправьте сообщение, и оно будет передано администратору канала. При необходимости, администратор ответит вам через этого бота.",
+    );
   });
 
   bot.on("message", async (ctx) => {
