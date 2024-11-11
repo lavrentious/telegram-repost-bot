@@ -77,11 +77,11 @@ class MainService {
           entities: ctx.message?.entities,
         },
       );
-      logger.debug(
+      logger.info(
         `admin reply forwarded to user ${original.original_user_id}.`,
       );
     } catch (error) {
-      logger.debug("Failed to forward admin's reply to user");
+      logger.info("Failed to forward admin's reply to user");
       logger.error(error);
       await ctx.reply("Сообщение не доставлено");
     }
