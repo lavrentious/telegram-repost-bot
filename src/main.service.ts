@@ -62,23 +62,28 @@ class MainService {
         JSON.stringify(ctx.message.reply_to_message, null, 2),
     );
     if (!original) {
-      await ctx.reply(
-        "message could not be delivered (user is anonymous and is not saved in the database)",
+      logger.info(
+        `couldn't send admin reply to message ${ctx.message.reply_to_message.message_id}`,
       );
+      await ctx.reply("Сообщение не доставлено (пользователь скрыт)");
       return;
     }
     try {
       await this.bot?.api.sendMessage(
         original.original_user_id,
-        ctx.message?.text || "<No text in the reply>",
-        { reply_parameters: { message_id: original.original_message_id } },
+        ctx.message?.text || "<пустое сообщение>",
+        {
+          reply_parameters: { message_id: original.original_message_id },
+          entities: ctx.message?.entities,
+        },
       );
       logger.debug(
         `admin reply forwarded to user ${original.original_user_id}.`,
       );
     } catch (error) {
-      logger.error("Failed to forward admin's reply to user:", error);
-      await ctx.reply("Failed to forward admin's reply to user: " + error);
+      logger.debug("Failed to forward admin's reply to user");
+      logger.error(error);
+      await ctx.reply("Сообщение не доставлено");
     }
   }
 
